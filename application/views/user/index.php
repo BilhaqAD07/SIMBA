@@ -12,10 +12,12 @@
         </a>
 
     </div>
-
+    <?php if ($this->session->flashdata('Pesan')): ?>
+        <?= $this->session->flashdata('Pesan') ?>
+    <?php endif; ?>
     <div class="col-lg-12 mb-4">
 
-    <div class="card shadow mb-4">
+        <div class="card shadow mb-4">
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover" id="dtHorizontalExample" width="100%" cellspacing="0">
@@ -23,6 +25,7 @@
                             <tr>
                                 <th width="1%">No</th>
                                 <th>Foto</th>
+                                <th>NIK</th>
                                 <th>Nama User</th>
                                 <th>Email</th>
                                 <th>Status</th>
@@ -34,48 +37,56 @@
                             <?php $no=1; foreach ($user as $u): ?>
                             <tr>
                                 <td onclick="detail('<?= $u->id_user ?>')"><?= $no++ ?>.</td>
-                                <td onclick="detail('<?= $u->id_user ?>')"><img style="border-radius: 5px;" src="assets/upload/pengguna/<?= $u->foto ?>" alt=""
-                                        width="50px"></td>
-                                <td onclick="detail('<?= $u->id_user ?>')"><?= $u->nama ?></td>
-                                <td onclick="detail('<?= $u->id_user ?>')"><?= $u->email ?></td>
-                                <td onclick="detail('<?= $u->id_user ?>')">
-                                
-                                <?php if($u->status == 'Aktif'): ?>
-                                    <span class="badge badge-success badge-md">
-                                    <?php else: ?>
-                                    <span class="badge badge-secondary badge-md">
-                                    <?php endif; ?>
-                                        <?= $u->status ?>
-                                    </span>
-                            
-                                </td>
-                                <td onclick="detail('<?= $u->id_user ?>')"><?= $u->level ?></td>
                                 <td>
-                                    <center>
-                                        <a href="<?= base_url() ?>user/ubah/<?= $u->id_user ?>"
-                                            class="btn btn-circle btn-success btn-sm">
-                                            <i class="fas fa-pen"></i>
-                                        </a>
-                                        <a href="#" onclick="konfirmasi('<?= $u->id_user ?>')"
-                                            class="btn btn-circle btn-danger btn-sm">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </center>
+                                    <a href="assets/upload/pengguna/<?= $u->foto ?>" data-lightbox="user-foto" data-title="<?= $u->nama ?>">
+                                        <img style="border-radius: 5px;" src="assets/upload/pengguna/<?= $u->foto ?>" alt="<?= $u->nama ?>" width="50px">
+                                    </a>
                                 </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                    <td ><?= $u->nik ?></td>
+                                    <td ><?= $u->nama ?></td>
+                                    <td ><?= $u->email ?></td>
+                                    <td >
+                                        
+                                        <?php if($u->status == 'Aktif'): ?>
+                                            <span class="badge badge-success badge-md">
+                                            <?php else: ?>
+                                                <span class="badge badge-secondary badge-md">
+                                                <?php endif; ?>
+                                                <?= $u->status ?>
+                                            </span>
+                                            
+                                        </td>
+                                        <td ><?= $u->level ?></td>
+                                        <td>
+                                            <center>
+                                                <a href="<?= base_url() ?>user/detail_data/<?= $u->id_user ?>"
+                                                    class="btn btn-circle btn-info btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="<?= base_url() ?>user/ubah/<?= $u->id_user ?>"
+                                                    class="btn btn-circle btn-success btn-sm">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                                <a href="#" onclick="konfirmasi('<?= $u->id_user ?>')"
+                                                    class="btn btn-circle btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-    </div>
+
+        </div>
+
+
 
     </div>
-
-
-
-</div>
-<!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->

@@ -4,19 +4,20 @@ class barangMasuk_model extends ci_model{
 
     function data()
     {
-        $this->db->order_by('id_barang_masuk','DESC');
+        $this->db->order_by('id_barang_masuk','ASC');
         return $query = $this->db->get('barang_masuk');
     }
 
     public function dataJoin()
     {
-      $this->db->select('*');
-      $this->db->from('barang_masuk as bm');
-      $this->db->join('barang as b', 'b.id_barang = bm.id_barang');
-      $this->db->join('supplier as s', 's.id_supplier = bm.id_supplier');
+      $this->db->select('bm.*, b.nama_barang,b.hargabeli, s.nama_supplier, j.nama_jenis'); // Include the jenis data
+    $this->db->from('barang_masuk as bm');
+    $this->db->join('barang as b', 'b.id_barang = bm.id_barang');
+    $this->db->join('supplier as s', 's.id_supplier = bm.id_supplier');
+    $this->db->join('jenis as j', 'j.id_jenis = b.id_jenis'); // Join with jenis table
 
-      $this->db->order_by('bm.id_barang_masuk','DESC');
-      return $query = $this->db->get();
+    $this->db->order_by('bm.id_barang_masuk', 'ASC');
+    return $query = $this->db->get();
     }
 
     public function dataJoinLike($tahun)
@@ -43,17 +44,22 @@ class barangMasuk_model extends ci_model{
       return $query = $this->db->get();
     }
 
-    function lapdata($tglAwal, $tglAkhir)
+    function lapdata($tglAwal, $tglAkhir, $jenisFilter = null)
     {
-      $this->db->select('*');
-      $this->db->from('barang_masuk as bm');
-      $this->db->join('barang as b', 'b.id_barang = bm.id_barang');
-      $this->db->join('supplier as s', 's.id_supplier = bm.id_supplier');
+       $this->db->select('bm.*, b.nama_barang,b.hargabeli, s.nama_supplier, j.nama_jenis');
+       $this->db->from('barang_masuk as bm');
+       $this->db->join('barang as b', 'b.id_barang = bm.id_barang');
+       $this->db->join('supplier as s', 's.id_supplier = bm.id_supplier');
+       $this->db->join('jenis as j', 'j.id_jenis = b.id_jenis');
+       if ($jenisFilter != null) {
+          $this->db->where('b.id_jenis', $jenisFilter);
+       }
 
-      $this->db->where('bm.tgl_masuk >=', $tglAwal);
-      $this->db->where('bm.tgl_masuk <=', $tglAkhir);
-      return $query = $this->db->get();
+       $this->db->where('bm.tgl_masuk >=', $tglAwal);
+       $this->db->where('bm.tgl_masuk <=', $tglAkhir);
+       return $query = $this->db->get();
     }
+
 
     function jmlperbulan($tglAwal, $tglAkhir)
     {
@@ -118,26 +124,23 @@ class barangMasuk_model extends ci_model{
 
 
     public function buat_kode()   {
-		  $this->db->select('RIGHT(barang_masuk.id_barang_masuk,4) as kode', FALSE);
-		  $this->db->order_by('id_barang_masuk','DESC');
-		  $this->db->limit(1);
-		  $query = $this->db->get('barang_masuk');      //cek dulu apakah ada sudah ada kode di tabel.
-		  if($query->num_rows() <> 0){
-		   //jika kode ternyata sudah ada.
-		   $data = $query->row();
-		   $kode = intval($data->kode) + 1;
-		  }
-		  else {
-		   //jika kode belum ada
-		   $kode = 1;
-		  }
-		  $kodemax = str_pad($kode, 4, "0", STR_PAD_LEFT); // angka 4 menunjukkan jumlah digit angka 0
-		  $kodejadi = "BRG-M-".$kodemax;    // hasilnya 
-		  return $kodejadi;
-	}
-
-
-
+          $this->db->select('RIGHT(barang_masuk.id_barang_masuk,4) as kode', FALSE);
+          $this->db->order_by('id_barang_masuk','DESC');
+          $this->db->limit(1);
+          $query = $this->db->get('barang_masuk');      //cek dulu apakah ada sudah ada kode di tabel.
+          if($query->num_rows() <> 0){
+           //jika kode ternyata sudah ada.
+           $data = $query->row();
+           $kode = intval($data->kode) + 1;
+          }
+          else {
+           //jika kode belum ada
+           $kode = 1;
+          }
+          $kodemax = str_pad($kode, 4, "0", STR_PAD_LEFT); // angka 4 menunjukkan jumlah digit angka 0
+          $kodejadi = "BRG-M-".$kodemax;    // hasilnya 
+          return $kodejadi;
+    }
 
 
 }

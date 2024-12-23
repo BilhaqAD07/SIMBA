@@ -1,8 +1,8 @@
 <?php foreach($data as $d): ?>
 <?php
 function format($tanggal){
-	$pecahkan = explode('-', $tanggal);
-	return $pecahkan[1] . '/' . $pecahkan[2] . '/' . $pecahkan[0];
+    $pecahkan = explode('-', $tanggal);
+    return $pecahkan[1] . '/' . $pecahkan[2] . '/' . $pecahkan[0];
 }
 ?>
 
@@ -11,7 +11,6 @@ function format($tanggal){
 
     <form action="<?= base_url() ?>barangKeluar/proses_ubah" name="myFormUpdate" method="POST" enctype="multipart/form-data"
         onsubmit="return validateFormUpdate()">
-
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -32,7 +31,7 @@ function format($tanggal){
 
         </div>
 
-        <div class="d-sm-flex  justify-content-between mb-0">
+        <div class="d-sm-flex justify-content-between mb-0">
             <div class="col-lg-8 mb-4">
                 <!-- form -->
                 <div class="card border-bottom-secondary shadow mb-4">
@@ -61,21 +60,39 @@ function format($tanggal){
                                     type="text" placeholder="" autocomplete="off">
                             </div>
 
-
                             <!-- Jumlah Barang -->
                             <div class="form-group"><label>Jumlah Keluar</label>
                                 <input name="jmlkeluarlama" type="hidden" value="<?= $d->jumlah_keluar ?>">
-                                <input class="form-control" name="jmlkeluar" type="number"
+                                <input class="form-control" name="jmlkeluar" id="jmlkeluar" type="number" min="1"
                                     value="<?= $d->jumlah_keluar ?>">
                             </div>
 
+							<!-- Status Barang -->
+							<div class="form-group">
+								<label>Status Barang Aktif</label>
+								<select name="status" class="form-control">
+									<option value="1" selected>Aktif</option>
+									<option value="0">Non Aktif</option>
+								</select>
+							 </div>
+
+							 <div class="form-group">
+								<label>Status Barang Delivery</label>
+								<select name="status" class="form-control">
+									<option value="1" selected>Delivery</option>
+									<option value="0">Non Delivery</option>
+								</select>
+							 </div>
+
+                            <!-- Total Harga -->
+                            <div class="form-group">
+                                <label>Total Harga</label>
+                                <input class="form-control" id="totalHarga" type="text" value="" readonly>
+                            </div>
+
                         </div>
-
-
-                        <br>
                     </div>
                 </div>
-
             </div>
 
             <div class="col-lg-4 mb-4">
@@ -100,21 +117,35 @@ function format($tanggal){
                             <!-- Divider -->
                             <hr class="sidebar-divider">
 
+                            <label><b>Warna Barang</b></label>
+                            <br>
+                            <h6 class="h6 text-gray-800" id="warna"><?= $d->warna ?></h6>
+                            <!-- Divider -->
+                            <hr class="sidebar-divider">
+
                             <label><b>Stok Barang</b></label>
                             <br>
                             <h6 class="h6 text-gray-800" id="stok"><?= $d->stok ?></h6>
                             <!-- Divider -->
                             <hr class="sidebar-divider">
 
+                            <label><b>Harga Jual</b></label>
+                            <br>
+                            <h6 class="h6 text-gray-800" id="hargaJual">Rp <?= number_format($d->hargajual, 0, ',', '.') ?></h6>
+                            <!-- Divider -->
+                            <hr class="sidebar-divider">
+
+                            <label><b>Tanggal Masuk</b></label>
+                            <br>
+                            <h6 class="h6 text-gray-800" id="stok"><?= $d->created_at ?></h6>
+                            <!-- Divider -->
+                            <hr class="sidebar-divider">
 
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-
-
     </form>
 
 </div>
@@ -133,35 +164,32 @@ function format($tanggal){
 <script>
 $('.chosen').chosen({
     width: '100%',
-
 });
+
+$('#datepicker').datepicker({
+    autoclose: true
+});
+
+// Script untuk menghitung total harga
+function hitungTotalHarga() {
+    var jumlahKeluar = document.getElementById('jmlkeluar').value;
+    var hargaJual = <?= $d->hargajual ?>;
+    var totalHarga = jumlahKeluar * hargaJual;
+    document.getElementById('totalHarga').value = totalHarga.toLocaleString('id-ID', {
+        style: 'currency',
+        currency: 'IDR'
+    });
+}
+
+// Panggil fungsi hitungTotalHarga ketika jumlah keluar berubah
+document.getElementById('jmlkeluar').addEventListener('input', hitungTotalHarga);
+
+// Hitung total harga saat halaman pertama kali dimuat
+hitungTotalHarga();
 
 $('#datepicker').datepicker({
     autoclose: true
 });
 </script>
 
-<!-- <?php if($this->session->flashdata('Pesan')): ?>
-
-<?php else: ?>
-<script>
-$(document).ready(function() {
-
-    let timerInterval
-    Swal.fire({
-        title: 'Memuat...',
-        timer: 1000,
-        onBeforeOpen: () => {
-            Swal.showLoading()
-        },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-
-    })
-});
-</script>
-<?php endif; ?>
-
-<?php endforeach; ?> -->
+<?php endforeach; ?>

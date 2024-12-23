@@ -14,6 +14,7 @@ function ambilData() {
         url: base_url,
         dataType: 'json',
         success: function(hasil) {
+            $("#nik").text(hasil[0].nik);
             $("#namaL").text(hasil[0].nama);
             $("#email").text(hasil[0].email);
             $("#notelp").text(hasil[0].notelp);

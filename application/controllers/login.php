@@ -5,6 +5,7 @@ class Login extends CI_Controller {
 
 	public function __construct() {
     parent::__construct();
+     $this->load->library('form_validation');
     $this->load->helper('url');
     $this->load->helper('download');
 	$this->load->library('pagination');
@@ -54,6 +55,32 @@ class Login extends CI_Controller {
 		}
 
 	}
+    public function changePassword(){
+
+       if(!$this->session->userdata('reset_email')){
+            redirect('login');
+       }
+
+       $this->form_validation->set_rules('password1', 'Password ', 'required|trim|min_length[4]|matches[password2]');
+       $this->form_validation->set_rules('password2', 'Repeat Password', 'required|trim|min_length[4]|matches[password1]');
+        if ($this->form_validation->run() == false) {
+        $data['title'] = 'Change Password';
+        $this->load->view('login/change-password', $data);
+        }else{
+            $password = md5($this->input->post('password1'));
+            $email = $this->session->userdata('reset_email');
+            $this->db->set('password', $password);
+            $this->db->where('email', $email);
+            $this->db->update('user');
+
+            $this->session->unset_userdata('reset_email');
+
+            $respon = array('respon' => 'success');
+            echo json_encode($respon);
+            redirect('login');
+        }
+
+    }
 
 	public function logout()
 	{

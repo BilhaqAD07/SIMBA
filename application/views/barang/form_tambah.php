@@ -36,9 +36,38 @@
                                 <input class="form-control" name="barang" type="text" placeholder="">
                             </div>
 
+                            <div class="form-group"><label>Warna</label>
+                                <input class="form-control" name="warna" type="text" placeholder="">
+                            </div>
+
                             <!-- Stok -->
                             <div class="form-group"><label>Stok Awal</label>
                                 <input class="form-control" name="stok" type="number" placeholder="">
+                            </div>
+
+							<!-- Status Barang -->
+							<div class="form-group">
+								<label>Status Barang Aktif</label>
+								<select name="status" class="form-control">
+									<option value="1" selected>Aktif</option>
+									<option value="0">Non Aktif</option>
+								</select>
+							 </div>
+
+							 <div class="form-group">
+								<label>Status Barang Delivery</label>
+								<select name="status" class="form-control">
+									<option value="1" selected>Delivery</option>
+									<option value="0">Non Delivery</option>
+								</select>
+							 </div>
+
+                            <div class="form-group"><label>Harga Beli</label>
+                                <input class="form-control" name="hargabeli" type="number" placeholder="">
+                            </div>
+
+                            <div class="form-group"><label>Harga Jual</label>
+                                <input class="form-control" name="hargajual" type="number" placeholder="">
                             </div>
 
                             <!-- jenis -->

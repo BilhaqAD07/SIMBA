@@ -34,22 +34,25 @@
                     <div class="card-body">
                         <div class="col-lg-12">
                             <!-- Nama Lengkap -->
+                            <div class="form-group"><label>NIK</label>
+                                <input class="form-control" name="nik" type="number" placeholder="Masukan NIK">
+                            </div>
                             <div class="form-group"><label>Nama Lengkap</label>
-                                <input class="form-control" name="namaL" type="text" placeholder="">
+                                <input class="form-control" name="namaL" type="text" placeholder="Nama">
                             </div>
                             <!-- Username -->
                             <div class="form-group"><label>Username</label>
-                                <input class="form-control" name="user" type="text" placeholder="">
+                                <input class="form-control" name="user" type="text" placeholder="Username">
                             </div>
 
                             <!-- NO Telepon -->
                             <div class="form-group"><label>Nomor Telepon</label>
-                                <input class="form-control" name="notelp" type="number" >
+                                <input class="form-control" name="notelp" type="text" maxlength="20" value="+62" placeholder="+62">
                             </div>
 
                             <!-- Email -->
                             <div class="form-group"><label>Email</label>
-                                <input class="form-control" name="email" type="email" >
+                                <input class="form-control" name="email" type="email" placeholder="Email" >
                             </div>
 
                             <!-- Level -->
@@ -57,19 +60,19 @@
                                 <select name="level" class="form-control">
                                     <option value="">--Pilih--</option>
                                     <option value="admin">Admin</option>
-                                    <option value="manajer">Manajer</option>
-                                    <option value="gudang">Gudang</option>
+                                    <option value="superadmin">Super Admin</option>
+                                    <option value="user">user</option>
                                 </select>
                             </div>
 
                             <!-- Password -->
                             <div class="form-group"><label>Password</label>
-                                <input class="form-control" name="pwd" type="password" >
+                                <input class="form-control" name="pwd" minlength="4" type="password" placeholder="Password" >
                             </div>
 
                             <!-- Konfirmasi Password -->
                             <div class="form-group"><label>Konfirmasi Password</label>
-                                <input class="form-control" name="kpwd" type="password" >
+                                <input class="form-control" name="kpwd" minlength="4" type="password" placeholder="Konfirmasi Password">
                             </div>
 
                         </div>

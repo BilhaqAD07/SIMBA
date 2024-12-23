@@ -10,131 +10,116 @@
             &nbsp;
             <h1 class="h2 mb-0 text-gray-800">Detail Pengguna</h1>
         </div>
-        <!-- 
-            <button type="submit" class="btn btn-primary btn-md btn-icon-split">
-                <span class="text text-white">Simpan Data</span>
-                <span class="icon text-white-50">
-                    <i class="fas fa-save"></i>
-                </span>
-            </button>
-            -->
     </div>
 
     <?php foreach ($data as $d): ?>
 
-    <div class="d-sm-flex  justify-content-between mb-0">
-        <div class="col-lg-12 mb-4">
-            <!-- buku -->
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <!-- Foto Pengguna -->
             <div class="card shadow mb-4">
-                <div class="card-body d-sm-flex">
-                    <div class="col-lg-3">
-                        <img width="100%" style="border-radius: 10px;"
-                            src="<?= base_url() ?>assets/upload/pengguna/<?= $d->foto ?>" alt="">
+                <div class="card-body text-center">
+                    <img width="80%" style="border-radius: 10px;" src="<?= base_url() ?>assets/upload/pengguna/<?= $d->foto ?>" alt="Foto Pengguna">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 mb-4">
+            <!-- Detail Pengguna -->
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <!-- ID Anggota -->
+                    <div class="form-group"><label>ID Pengguna</label>
+                        <h4 class="h4 text-gray-800"><b><?= $d->id_user ?></b></h4>
                     </div>
 
-                    <br>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
 
-                    <div class="col-lg-9">
-                        <!-- ID Anggota -->
-                        <div class="form-group"><label>ID Pengguna</label>
-                            <h4 class="h4 text-gray-800"><b><?= $d->id_user ?></b></h4>
-                        </div>
+                    <!-- NIK -->
+                    <div class="form-group"><label>NIK</label>
+                        <h4 class="h4 text-gray-800"><?= $d->nik ?></h4>
+                    </div>
 
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
+                    <!-- Nama Lengkap -->
+                    <div class="form-group"><label>Nama Lengkap</label>
+                        <h4 class="h4 text-gray-800"><?= $d->nama ?></h4>
+                    </div>
 
-                         <!-- Nama Lengkap -->
-                         <div class="form-group"><label>Nama Lengkap</label>
-                            <h4 class="h4 text-gray-800"><?= $d->nama ?></h4>
-                        </div>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
 
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
+                    <!-- Username -->
+                    <div class="form-group"><label>Username</label>
+                        <h4 class="h4 text-gray-800"><?= $d->username ?></h4>
+                    </div>
 
-                        <!-- Username -->
-                        <div class="form-group"><label>Username</label>
-                            <h4 class="h4 text-gray-800"><?= $d->username ?></h4>
-                        </div>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
 
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
+                    <!-- NoTelepon -->
+                    <div class="form-group"><label>Nomor Telepon</label>
+                        <!-- Tambahkan link WhatsApp -->
+                        <h4 class="h4 text-gray-800">
+                            <a href="https://wa.me/<?= $d->notelp ?>" target="_blank" style="text-decoration: none;">
+                                <img src="<?= base_url() ?>assets/img/wa.png" alt="WhatsApp" width="60" height="60" style="margin-bottom: -7px;">
+                                <?= $d->notelp ?>
+                            </a>
+                        </h4>
+                    </div>
 
-                        <!-- NoTelepon -->
-                        <div class="form-group"><label>Nomor Telepon</label>
-                            <h4 class="h4 text-gray-800"><?= $d->notelp ?></h4>
-                        </div>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
 
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
+                    <!-- Email -->
+                    <div class="form-group"><label>Email</label>
+                        <h4 class="h4 text-gray-800"><?= $d->email ?></h4>
+                    </div>
 
-                        <!-- Email -->
-                        <div class="form-group"><label>Email</label>
-                            <h4 class="h4 text-gray-800"><?= $d->email ?></h4>
-                        </div>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
 
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
+                    <!-- Level -->
+                    <div class="form-group"><label>Level</label>
+                        <h4 class="h4 text-gray-800"><?= $d->level ?></h4>
+                    </div>
 
-                        <!-- Level -->
-                        <div class="form-group"><label>Level</label>
-                            <h4 class="h4 text-gray-800"><?= $d->level ?></h4>
-                        </div>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
 
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
-
-                        <!-- Status -->
-                        <div class="form-group"><label>Status</label>
-                            <?php if($d->status == "Aktif"): ?>
+                    <!-- Status -->
+                    <div class="form-group"><label>Status</label>
+                        <?php if($d->status == "Aktif"): ?>
                             <h4 class="h4 text-success">
-                            <?php else: ?>
+                        <?php else: ?>
                             <h4 class="h4 text-gray-800">
-                            <?php endif; ?>
-                                <?= $d->status ?>
-                            </h4>
-                        </div>
-
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
-
+                        <?php endif; ?>
+                            <?= $d->status ?>
+                        </h4>
                     </div>
+
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
 
                 </div>
             </div>
-
         </div>
-
-        <?php endforeach; ?>
-
     </div>
-    <!-- /.container-fluid -->
+
+    <?php endforeach; ?>
 
 </div>
+<!-- /.container-fluid -->
+
 <!-- End of Main Content -->
 
-
-<script src="<?= base_url(); ?>assets/js/jquery.min.js"></script>
-<script src="<?= base_url(); ?>assets/js/pengguna.js"></script>
-
-<?php if($this->session->flashdata('Pesan')): ?>
-
-<?php else: ?>
-<script>
-$(document).ready(function() {
-
-    let timerInterval
-    Swal.fire({
-        title: 'Memuat...',
-        timer: 1000,
-        onBeforeOpen: () => {
-            Swal.showLoading()
-        },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-
-    })
-});
-</script>
-<?php endif; ?>
+<!-- Script dan CSS WhatsApp Icon -->
+<style>
+    .whatsapp-icon {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        vertical-align: middle;
+        margin-bottom: -7px;
+    }
+</style>

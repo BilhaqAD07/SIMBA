@@ -41,6 +41,10 @@
                             </div>
 
                              <!-- Nama Lengkap -->
+                            <div class="form-group"><label>NIK</label>
+                                <input class="form-control" name="nik" readonly type="text" value="<?= $u->nik ?>">
+                            </div>
+
                              <div class="form-group"><label>Nama Lengkap</label>
                                 <input class="form-control" name="namaL" type="text" value="<?= $u->nama ?>">
                             </div>
@@ -52,7 +56,7 @@
 
                             <!-- NO Telepon -->
                             <div class="form-group"><label>Nomor Telepon</label>
-                                <input class="form-control" name="notelp" type="number" value="<?= $u->notelp ?>">
+                                <input class="form-control" name="notelp" type="number" maxlength="12" value="<?= $u->notelp ?>">
                             </div>
 
                             <!-- Email -->
@@ -60,27 +64,16 @@
                                 <input class="form-control" name="email" type="email" value="<?= $u->email ?>">
                             </div>
 
-                            <!-- Level -->
                             <div class="form-group"><label>Level</label>
-                                <select name="level" class="form-control">
-                                    <option value="admin" 
-                                    <?php if($u->level == "admin"): ?> Selected <?php endif; ?> >Admin</option>
-                                    <option value="manajer" 
-                                    <?php if($u->level == "manajer"): ?> Selected <?php endif; ?> >Manajer</option>
-                                    <option value="gudang" 
-                                    <?php if($u->level == "gudang"): ?> Selected <?php endif; ?> >Gudang</option>
-                                </select>
+                                <input class="form-control" readonly name="level" type="text" value="<?= $u->level ?>">
                             </div>
 
-                             <!-- Status -->
-                             <div class="form-group"><label>Status</label>
-                                <select name="status" class="form-control">
-                                    <option value="Aktif" 
-                                    <?php if($u->status == "Aktif"): ?> Selected <?php endif; ?> >Aktif</option>
-                                    <option value="Tidak Aktif" 
-                                    <?php if($u->status == "Tidak Aktif"): ?> Selected <?php endif; ?> >Tidak Aktif</option>
-                                </select>
+                            <div class="form-group"><label>Status</label>
+                                <input class="form-control" name="status" readonly type="text" value="<?= $u->status ?>">
                             </div>
+
+                            <!-- Level -->
+        
 
                             
 
@@ -144,12 +137,12 @@
 
                         <!-- Password -->
                         <div class="form-group"><label>Password</label>
-                            <input class="form-control" name="pwd" type="password" value="">
+                            <input class="form-control" name="pwd" minlength="4" type="password" value="">
                         </div>
 
                         <!-- Konfirmasi Password -->
                         <div class="form-group"><label>Konfirmasi Password</label>
-                            <input class="form-control" name="kpwd" type="password" value="">
+                            <input class="form-control" name="kpwd" minlength="4" type="password" value="">
                         </div>
 
                     </div>

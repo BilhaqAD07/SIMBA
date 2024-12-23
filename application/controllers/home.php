@@ -18,6 +18,8 @@ class Home extends CI_Controller {
 	{
 		$data['title'] = 'Dashboard';
 		$data['jmlbarang'] = $this->barang_model->dataJoin()->num_rows();
+		$data['jmlBM'] = $this->barangMasuk_model->dataJoin()->num_rows();
+		$data['jmlBK'] = $this->barangKeluar_model->dataJoin()->num_rows();
 		$data['jmlsupplier'] = $this->supplier_model->data()->num_rows();
 		$data['jmlStok'] = $this->barang_model->totalStok();
 		$data['jmlUser'] = $this->user_model->data()->num_rows();

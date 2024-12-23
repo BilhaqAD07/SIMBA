@@ -4,7 +4,7 @@ class jenis_model extends ci_model{
 
     function data()
     {
-        $this->db->order_by('id_jenis','DESC');
+        $this->db->order_by('id_jenis','ASC');
         return $query = $this->db->get('jenis');
     }
 
@@ -46,7 +46,7 @@ class jenis_model extends ci_model{
 
     public function buat_kode()   {
 		  $this->db->select('RIGHT(jenis.id_jenis,4) as kode', FALSE);
-		  $this->db->order_by('id_jenis','DESC');
+		  $this->db->order_by('id_jenis','ASC');
 		  $this->db->limit(1);
 		  $query = $this->db->get('jenis');      //cek dulu apakah ada sudah ada kode di tabel.
 		  if($query->num_rows() <> 0){

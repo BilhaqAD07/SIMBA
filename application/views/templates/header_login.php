@@ -1,5 +1,6 @@
 <?php 
-
+$query = "SELECT * FROM setting_app";
+$setting = $this->db->query($query)->row_array();
 if ($this->session->has_userdata('login_session')) {
     redirect('home');
 }
@@ -16,11 +17,12 @@ if ($this->session->has_userdata('login_session')) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" href="<?= base_url(); ?>assets/icon/iconkj.png">
+     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon"/>
+    <link rel="icon" type="image/png" href="<?= base_url('assets/img/logo/').$setting['logo'] ?>"/>
     <link href="<?= base_url(); ?>assets/loading/loader.css" rel="stylesheet" type="text/css">
     <link href="<?= base_url(); ?>assets/css/all.css" rel="stylesheet">
     <link href="<?= base_url(); ?>assets/css/animate/animate.min.css" rel="stylesheet">
-    <title>KONVEKSI-JAYA | Login</title>
+    <title><?= $setting['nama'] ?> | Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url(); ?>assets/sbadmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -46,6 +48,7 @@ if ($this->session->has_userdata('login_session')) {
 
 </head>
 
-<body class="bg-gradient-secondary">
+<body style="background-image: url('assets/img/bg.png');background-size: 100%;background-repeat: no-repeat;">
+<!-- <body style="background-color: #FF5900;"> -->
 <!-- Base url untuk js-->
 <input type="hidden" value="<?= base_url() ?>" id="baseurl">

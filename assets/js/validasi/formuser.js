@@ -1,4 +1,5 @@
 function validateForm() {
+    var nik = document.forms["myForm"]["nik"].value;
     var namaL = document.forms["myForm"]["namaL"].value;
     var user = document.forms["myForm"]["user"].value;
     var notelp = document.forms["myForm"]["notelp"].value;
@@ -7,17 +8,29 @@ function validateForm() {
     var pwd = document.forms["myForm"]["pwd"].value;
     var kpwd = document.forms["myForm"]["kpwd"].value;
 
-    if (namaL == "") {
-        validasi('Nama Lengkap wajib di isi!', 'warning');
+    if (nik !== "" || nik == '') {
+         if(nik == ''){
+            validasi('NIK wajib di isi', 'warning');
+            return false;
+        }else if(nik.length > 16){
+            validasi('Panjang NIK Maximal 16 karakter!', 'warning');
+            return false;
+        }
+    } else if (namaL == '') {
+        validasi('Nama wajib di isi!', 'warning');
         return false;
     } else if (user == '') {
         validasi('Username wajib di isi!', 'warning');
         return false;
-    } else if (notelp == '') {
-        validasi('Nomor Telepon wajib di isi!', 'warning');
-        return false;
-    } 
-    else if (email == '') {
+    } else if (notelp !== '' || notelp == '') {
+        if(notelp == ''){
+            validasi('No Telepon wajib di isi!', 'warning');
+            return false;
+        }else if(notelp.length > 12){
+           validasi('Panjang Maximal No Telepon 12 karakter!', 'warning');
+            return false;
+        }
+    } else if (email == '') {
         validasi('Email wajib di isi!', 'warning');
         return false;
     } else if (level == '') {
@@ -25,8 +38,8 @@ function validateForm() {
         return false;
     } else if (pwd !== '' || kpwd !== '') {
 
-        if(pwd.length < 6){
-            validasi('Panjang Password minimal 6 karakter!', 'warning');
+        if(pwd.length < 4){
+            validasi('Panjang Password minimal 4 karakter!', 'warning');
             return false;
         }else if(pwd !== kpwd){
             validasi('Konfirmasi Password tidak sesuai!', 'warning');

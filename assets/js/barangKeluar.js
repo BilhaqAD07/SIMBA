@@ -16,6 +16,9 @@ function ambilBarang() {
         $('#preview').attr("src", link + "assets/upload/barang/box.png");
         $('#judul').text("-");
         $('#stok').text("-");
+        $('#warna').text("-");
+        $('#hargajual').text("-");
+        $('#created_at').text("-");
     } else {
         $.ajax({
             type: 'POST',
@@ -25,6 +28,9 @@ function ambilBarang() {
             success: function(hasil) {
                 $('#preview').attr("src", link + "assets/upload/barang/" + hasil[0].foto);
                 $('#judul').text(hasil[0].nama_barang);
+                $('#warna').text(hasil[0].warna);
+                $('#hargajual').text(hasil[0].hargajual);
+                $('#created_at').text(hasil[0].created_at);
                 getTotalStok(hasil[0].stok, hasil[0].id_barang);
             }
         });

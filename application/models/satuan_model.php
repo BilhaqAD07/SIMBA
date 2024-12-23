@@ -4,7 +4,7 @@ class satuan_model extends ci_model{
 
     function data()
     {
-        $this->db->order_by('id_satuan','DESC');
+        $this->db->order_by('id_satuan','ASC');
         return $query = $this->db->get('satuan');
     }
 
@@ -46,7 +46,7 @@ class satuan_model extends ci_model{
 
     public function buat_kode()   {
 		  $this->db->select('RIGHT(satuan.id_satuan,4) as kode', FALSE);
-		  $this->db->order_by('id_satuan','DESC');
+		  $this->db->order_by('id_satuan','ASC');
 		  $this->db->limit(1);
 		  $query = $this->db->get('satuan');      //cek dulu apakah ada sudah ada kode di tabel.
 		  if($query->num_rows() <> 0){

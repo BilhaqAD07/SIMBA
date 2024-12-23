@@ -51,6 +51,7 @@ class Profile extends CI_Controller {
 		$this->load->library('upload', $config);
 		
 		$kode = $this->input->post('iduser');
+		$nik = $this->input->post('nik');
 		$namaL = $this->input->post('namaL');
 		$user = $this->input->post('user');
 		$notelp = $this->input->post('notelp');
@@ -90,6 +91,7 @@ class Profile extends CI_Controller {
 		}
 
 		$data=array(
+			'nik'=>$nik,
 			'nama'=>$namaL,
 			'username'=>$user,
 			'notelp'=>$notelp,
@@ -104,17 +106,10 @@ class Profile extends CI_Controller {
 		$where = array('id_user'=>$kode);
 	  
 		  $this->user_model->ubah_data($where, $data, 'user');
-		  $this->session->set_flashdata('Pesan','
-			<script>
-			$(document).ready(function() {
-			swal.fire({
-				title: "Berhasil diubah!",
-				icon: "success",
-				confirmButtonColor: "#4e73df",
-			});
-			});
-			</script>
-			');
+		   $this->session->set_flashdata('Pesan', '
+				    <div style="background-color: #4CAF50; color: white; padding: 10px; margin-buttom: 10px">
+				        <strong>Sukses!</strong> Data berhasil diedit!
+				    </div>');
 
 		  redirect('profile');
 	}

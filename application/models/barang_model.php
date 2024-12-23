@@ -3,7 +3,7 @@ class barang_model extends ci_model{
 
     function data()
     {
-        $this->db->order_by('id_barang','DESC');
+        $this->db->order_by('id_barang','ASC');
         return $query = $this->db->get('barang');
     }
 
@@ -14,9 +14,27 @@ class barang_model extends ci_model{
       $this->db->join('jenis as j', 'j.id_jenis = b.id_jenis');
       $this->db->join('satuan as s', 's.id_satuan = b.id_satuan');
 
-      $this->db->order_by('b.id_barang','DESC');
+      $this->db->order_by('b.id_barang','ASC');
       return $query = $this->db->get();
     }
+
+     function lapdata($tglAwal, $tglAkhir, $jenisFilter = null)
+    {
+    $this->db->select('b.*, b.nama_barang, s.nama_satuan, j.nama_jenis');
+    $this->db->from('barang as b');
+    $this->db->join('jenis as j', 'j.id_jenis = b.id_jenis');
+    $this->db->join('satuan as s', 's.id_satuan = b.id_satuan');
+
+    $this->db->where('b.created_at >=', $tglAwal);
+    $this->db->where('b.created_at <=', $tglAkhir);
+    
+    if ($jenisFilter) {
+        $this->db->where('b.id_jenis', $jenisFilter);
+    }
+
+    return $query = $this->db->get();
+    }
+
 
     public function totalStok()
     {
@@ -36,13 +54,13 @@ class barang_model extends ci_model{
       $this->db->join('jenis as j', 'j.id_jenis = b.id_jenis');
       $this->db->join('satuan as s', 's.id_satuan = b.id_satuan');
 
-      $this->db->order_by('b.id_barang','DESC');
+      $this->db->order_by('b.id_barang','ASC');
       return $query = $this->db->get();
     }
 
     public function ambilFoto($where)
     {
-      $this->db->order_by('id_barang','DESC');
+      $this->db->order_by('id_barang','ASC');
       $this->db->limit(1);
       $query = $this->db->get_where('barang', $where);   
       
@@ -52,8 +70,30 @@ class barang_model extends ci_model{
       return $foto;
     }
 
+    public function detailJoin2($where)
+    {
+      $this->db->select('*');
+      $this->db->from('barang_masuk as bm');
+      $this->db->join('barang as b', 'b.id_barang = bm.id_barang');
+      $this->db->join('supplier as s', 's.id_supplier = bm.id_supplier');
+      $this->db->where('bm.id_barang',$where);
+      $this->db->order_by('bm.id_barang_masuk','ASC');
+      return $query = $this->db->get();
+    }
+
+     public function detailJoin3($where)
+    {
+      $this->db->select('*');
+      $this->db->from('barang_masuk as bm');
+      $this->db->join('barang as b', 'b.id_barang = bm.id_barang');
+      $this->db->join('supplier as s', 's.id_supplier = bm.id_supplier');
+      $this->db->where('bm.id_barang',$where);
+      $this->db->order_by('bm.id_barang_masuk','DESC');
+      return $query = $this->db->get();
+    }
+
     public function ambil_stok($where){
-      $this->db->order_by('id_barang','DESC');
+      $this->db->order_by('id_barang','ASC');
       $this->db->limit(1);
       $query = $this->db->get_where('barang',$where);
       $data = $query->row();
@@ -114,6 +154,11 @@ class barang_model extends ci_model{
 		  $kodejadi = "BRG-".$kodemax;    
 		  return $kodejadi;
 	}
+
+     public function getSetting()
+    {
+        return $this->db->get('setting_app')->row_array();
+    }
 
 
 

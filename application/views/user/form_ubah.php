@@ -36,8 +36,13 @@
                     <div class="card-body">
                         <div class="col-lg-12">
                              <!-- ID User-->
-                             <div class="form-group"><label>ID User</label>
+                            <div class="form-group"><label>ID User</label>
                                 <input class="form-control" name="iduser" type="text" value="<?= $u->id_user ?>" readonly>
+                            </div>
+
+                             <!-- NIK -->
+                             <div class="form-group"><label>NIK</label>
+                                <input class="form-control" name="nik" type="number" value="<?= $u->nik ?>" placeholder="">
                             </div>
 
                              <!-- Nama Lengkap -->
@@ -52,7 +57,7 @@
 
                             <!-- NO Telepon -->
                             <div class="form-group"><label>Nomor Telepon</label>
-                                <input class="form-control" name="notelp" type="number" value="<?= $u->notelp ?>">
+                                <input class="form-control" name="notelp" type="text" maxlength="20" value="<?= $u->notelp ?>" maxlength="12">
                             </div>
 
                             <!-- Email -->
@@ -65,10 +70,10 @@
                                 <select name="level" class="form-control">
                                     <option value="admin" 
                                     <?php if($u->level == "admin"): ?> Selected <?php endif; ?> >Admin</option>
-                                    <option value="manajer" 
-                                    <?php if($u->level == "manajer"): ?> Selected <?php endif; ?> >Manajer</option>
-                                    <option value="gudang" 
-                                    <?php if($u->level == "gudang"): ?> Selected <?php endif; ?> >Gudang</option>
+                                    <option value="superadmin" 
+                                    <?php if($u->level == "superadmin"): ?> Selected <?php endif; ?> >Super Admin</option>
+                                    <option value="user" 
+                                    <?php if($u->level == "user"): ?> Selected <?php endif; ?> >User</option>
                                 </select>
                             </div>
 
@@ -144,12 +149,12 @@
 
                         <!-- Password -->
                         <div class="form-group"><label>Password</label>
-                            <input class="form-control" name="pwd" type="password" value="">
+                            <input class="form-control" name="pwd" type="password" minlength="4" value="">
                         </div>
 
                         <!-- Konfirmasi Password -->
                         <div class="form-group"><label>Konfirmasi Password</label>
-                            <input class="form-control" name="kpwd" type="password" value="">
+                            <input class="form-control" name="kpwd" type="password" minlength="4" value="">
                         </div>
 
                     </div>

@@ -92,10 +92,33 @@ function format($tanggal){
                             <?php endif; ?>
 
                             <!-- Jumlah Barang -->
-                            <div class="form-group"><label>Jumlah Masuk</label>
+                            <div class="form-group">
+                                <label>Jumlah Masuk</label>
                                 <input name="jmlmasuklama" type="hidden" value="<?= $d->jumlah_masuk ?>">
-                                <input class="form-control" name="jmlmasuk" type="number"
-                                    value="<?= $d->jumlah_masuk ?>">
+                                <input class="form-control" name="jmlmasuk" id="jmlmasuk" type="number" min="1" value="<?= $d->jumlah_masuk ?>">
+                            </div>
+
+							<!-- Status Barang -->
+							<div class="form-group">
+								<label>Status Barang Aktif</label>
+								<select name="status" class="form-control">
+									<option value="1" selected>Aktif</option>
+									<option value="0">Non Aktif</option>
+								</select>
+							 </div>
+
+							 <div class="form-group">
+								<label>Status Barang Delivery</label>
+								<select name="status" class="form-control">
+									<option value="1" selected>Delivery</option>
+									<option value="0">Non Delivery</option>
+								</select>
+							 </div>
+
+                            <!-- Total Harga -->
+                            <div class="form-group">
+                                <label>Total Harga</label>
+                                <input class="form-control" id="totalharga" type="text" readonly>
                             </div>
 
                         </div>
@@ -129,9 +152,20 @@ function format($tanggal){
                             <!-- Divider -->
                             <hr class="sidebar-divider">
 
+                            <label><b>Warna Barang</b></label>
+                            <br>
+                            <h6 class="h6 text-gray-800" id="warna"><?= $d->warna ?></h6>
+                            <!-- Divider -->
+                            <hr class="sidebar-divider">
+
                             <label><b>Stok Barang</b></label>
                             <br>
                             <h6 class="h6 text-gray-800" id="stok"><?= $d->stok ?></h6>
+                            <!-- Divider -->
+                            <hr class="sidebar-divider">
+                             <label><b>Harga Beli</b></label>
+                            <br>
+                            <h6 class="h6 text-gray-800" id="stok"><?= $d->hargabeli ?></h6>
                             <!-- Divider -->
                             <hr class="sidebar-divider">
 
@@ -158,6 +192,34 @@ function format($tanggal){
 <script src="<?= base_url(); ?>assets/plugin/datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="<?= base_url(); ?>assets/plugin/chosen/chosen.jquery.min.js"></script>
 
+<script>
+    function checkInput() {
+        var input = document.getElementById('jmlbarang');
+        if (input.value < 0) {
+            input.value = 0;
+        }
+    }
+</script>
+
+<script>
+    // Ambil elemen-elemen yang dibutuhkan
+    var jumlahMasukInput = document.getElementById('jmlmasuk');
+    var hargaBeli = <?= $d->hargabeli ?>;
+    var totalHargaInput = document.getElementById('totalharga');
+
+    // Fungsi untuk menghitung total harga
+    function hitungTotalHarga() {
+        var jumlahMasuk = parseFloat(jumlahMasukInput.value) || 0;
+        var totalHarga = jumlahMasuk * hargaBeli;
+        totalHargaInput.value = totalHarga.toFixed(2); // Menampilkan dengan dua angka desimal
+    }
+
+    // Panggil fungsi hitungTotalHarga setiap kali jumlah barang berubah
+    jumlahMasukInput.addEventListener('input', hitungTotalHarga);
+
+    // Panggil fungsi hitungTotalHarga saat halaman pertama kali dimuat
+    document.addEventListener('DOMContentLoaded', hitungTotalHarga);
+</script>
 
 <script>
 $('.chosen').chosen({
@@ -169,7 +231,7 @@ $('#datepicker').datepicker({
     autoclose: true
 });
 </script>
-<!-- 
+
 <?php if($this->session->flashdata('Pesan')): ?>
 
 <?php else: ?>
@@ -193,4 +255,4 @@ $(document).ready(function() {
 </script>
 <?php endif; ?>
 
-<?php endforeach; ?> -->
+<?php endforeach; ?>

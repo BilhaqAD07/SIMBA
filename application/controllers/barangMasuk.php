@@ -10,6 +10,7 @@ class BarangMasuk extends CI_Controller {
 	$this->load->library('pagination');
 	$this->load->helper('cookie');
 	$this->load->model('supplier_model');
+	$this->load->model('jenis_model');
 	$this->load->model('barang_model');
 	$this->load->model('barangMasuk_model');
   }
@@ -27,7 +28,7 @@ class BarangMasuk extends CI_Controller {
 	public function laporan()
 	{
 		$data['title'] = 'Laporan Barang Masuk';
-
+		$data['jenis_barang'] = $this->jenis_model->data()->result();
 		$this->load->view('templates/header', $data);
 		$this->load->view('barangMasuk/laporan');
 		$this->load->view('templates/footer');
@@ -39,9 +40,9 @@ class BarangMasuk extends CI_Controller {
     	echo json_encode($data);
 	}
 
-	public function filterBarangMasuk($tglawal, $tglakhir)
+	public function filterBarangMasuk($tglawal, $tglakhir, $jenisFilter = null)
 	{
-      	$data = $this->barangMasuk_model->lapdata($tglawal, $tglakhir)->result();
+      	$data = $this->barangMasuk_model->lapdata($tglawal, $tglakhir, $jenisFilter)->result();
     	echo json_encode($data);
 	}
 
@@ -50,6 +51,7 @@ class BarangMasuk extends CI_Controller {
 	{
 		$id = $this->input->post('id');
     	$where = array('id_barang' => $id );
+    	$data['jenis'] = $this->jenis_model->data()->result();
     	$data = $this->barang_model->detail_data($where, 'barang')->result();
     	echo json_encode($data);
 	}
@@ -73,17 +75,10 @@ class BarangMasuk extends CI_Controller {
 		$this->barang_model->hapus_data($where, 'barang_masuk');
 
 
-		$this->session->set_flashdata('Pesan','
-		<script>
-		$(document).ready(function() {
-			swal.fire({
-				title: "Berhasil dihapus!",
-				icon: "success",
-				confirmButtonColor: "#4e73df",
-			});
-		});
-		</script>
-		');
+		 $this->session->set_flashdata('Pesan', '
+				    <div style="background-color: #4CAF50; color: white; padding: 10px; margin-buttom: 10px">
+				        <strong>Sukses!</strong> Data berhasil dihapus!
+				    </div>');
 		redirect('barang_masuk');
 	}
 
@@ -94,6 +89,7 @@ class BarangMasuk extends CI_Controller {
         $data['kode'] = $this->barangMasuk_model->buat_kode();
         
 		$data['barang'] = $this->barang_model->data()->result();
+		$data['jenis'] = $this->jenis_model->data()->result();
         $data['jmlbarang'] = $this->barang_model->data()->num_rows();
         
         $data['supplier'] = $this->supplier_model->data()->result();
@@ -146,17 +142,10 @@ class BarangMasuk extends CI_Controller {
 		$where = array('id_barang' => $barang);
 
 		$this->barangMasuk_model->tambah_data($data, 'barang_masuk');
-		$this->session->set_flashdata('Pesan','
-		<script>
-		$(document).ready(function() {
-			swal.fire({
-				title: "Berhasil ditambahkan!",
-				icon: "success",
-				confirmButtonColor: "#4e73df",
-			});
-		});
-		</script>
-		');
+		 $this->session->set_flashdata('Pesan', '
+				    <div style="background-color: #4CAF50; color: white; padding: 10px; margin-buttom: 10px">
+				        <strong>Sukses!</strong> Data berhasil ditambah!
+				    </div>');
     	redirect('barang_masuk');
 	}
 	
@@ -182,17 +171,10 @@ class BarangMasuk extends CI_Controller {
 		$where = array('id_barang_masuk'=>$kode);
 
 		$this->barangMasuk_model->ubah_data($where, $data, 'barang_masuk');
-		$this->session->set_flashdata('Pesan','
-		<script>
-		$(document).ready(function() {
-			swal.fire({
-				title: "Berhasil diubah!",
-				icon: "success",
-				confirmButtonColor: "#4e73df",
-			});
-		});
-		</script>
-		');
+		 $this->session->set_flashdata('Pesan', '
+				    <div style="background-color: #4CAF50; color: white; padding: 10px; margin-buttom: 10px">
+				        <strong>Sukses!</strong> Data berhasil diedit!
+				    </div>');
     	redirect('barang_masuk');
 	}
 

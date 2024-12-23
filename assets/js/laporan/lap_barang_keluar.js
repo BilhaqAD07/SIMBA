@@ -51,9 +51,11 @@ function ambilBk() {
         },
         columns: [
             { "data": "id_barang_keluar" },
+             { "data": "created_at" },
             { "data": "tgl_keluar" },
             { "data": "id_barang_keluar" },
             { "data": "nama_barang" },
+            { "data": "nama_jenis" },
             { "data": "jumlah_keluar" },
         ],
 
@@ -90,9 +92,11 @@ function filterBk(tglawal, tglakhir) {
         },
         columns: [
             { "data": "id_barang_keluar" },
+              { "data": date("created_at") },
             { "data": "tgl_keluar" },
             { "data": "id_barang_keluar" },
             { "data": "nama_barang" },
+            { "data": "nama_jenis" },
             { "data": "jumlah_keluar" },
         ],
 

@@ -55,6 +55,7 @@ function ambilBm() {
             { "data": "id_barang_masuk" },
             { "data": "nama_supplier" },
             { "data": "nama_barang" },
+            { "data": "id_jenis" },
             { "data": "jumlah_masuk" },
         ],
 
@@ -95,6 +96,7 @@ function filterBm(tglawal, tglakhir) {
             { "data": "id_barang_masuk" },
             { "data": "nama_supplier" },
             { "data": "nama_barang" },
+            { "data": "id_jenis" },
             { "data": "jumlah_masuk" },
         ],
 

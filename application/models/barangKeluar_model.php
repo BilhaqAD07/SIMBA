@@ -10,9 +10,10 @@ class barangKeluar_model extends ci_model{
 
     public function dataJoin()
     {
-      $this->db->select('*');
+      $this->db->select('bk.*, b.nama_barang,b.hargajual, j.nama_jenis');
       $this->db->from('barang_keluar as bk');
       $this->db->join('barang as b', 'b.id_barang = bk.id_barang');
+      $this->db->join('jenis as j', 'j.id_jenis = b.id_jenis');
       $this->db->order_by('bk.id_barang_keluar','DESC');
       return $query = $this->db->get();
     }
@@ -38,12 +39,15 @@ class barangKeluar_model extends ci_model{
       return $query = $this->db->get();
     }
 
-    function lapdata($tglAwal, $tglAkhir)
+    function lapdata($tglAwal, $tglAkhir, $jenisFilter = null)
     {
-      $this->db->select('*');
+      $this->db->select('bk.*, b.nama_barang,b.hargajual, j.nama_jenis');
       $this->db->from('barang_keluar as bk');
       $this->db->join('barang as b', 'b.id_barang = bk.id_barang');
-
+      $this->db->join('jenis as j', 'j.id_jenis = b.id_jenis');
+       if ($jenisFilter != null) {
+          $this->db->where('b.id_jenis', $jenisFilter);
+       }
       $this->db->where('bk.tgl_keluar >=', $tglAwal);
       $this->db->where('bk.tgl_keluar <=', $tglAkhir);
       return $query = $this->db->get();

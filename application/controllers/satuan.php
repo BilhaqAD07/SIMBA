@@ -33,17 +33,10 @@ class Satuan extends CI_Controller {
 		);
 
 		$this->satuan_model->tambah_data($data, 'satuan');
-		$this->session->set_flashdata('Pesan','
-		<script>
-		$(document).ready(function() {
-			swal.fire({
-				title: "Berhasil ditambahkan!",
-				icon: "success",
-				confirmButtonColor: "#4e73df",
-			});
-		});
-		</script>
-		');
+		 $this->session->set_flashdata('Pesan', '
+				    <div style="background-color: #4CAF50; color: white; padding: 10px; margin-buttom: 10px">
+				        <strong>Sukses!</strong> Data berhasil ditambah!
+				    </div>');
     	redirect('satuan');
 	}
 
@@ -63,17 +56,10 @@ class Satuan extends CI_Controller {
 		);
 
 		$this->satuan_model->ubah_data($where, $data, 'satuan');
-		$this->session->set_flashdata('Pesan','
-		<script>
-		$(document).ready(function() {
-			swal.fire({
-				title: "Berhasil diubah!",
-				icon: "success",
-				confirmButtonColor: "#4e73df",
-			});
-		});
-		</script>
-		');
+		 $this->session->set_flashdata('Pesan', '
+				    <div style="background-color: #4CAF50; color: white; padding: 10px; margin-buttom: 10px">
+				        <strong>Sukses!</strong> Data berhasil diedit!
+				    </div>');
     	redirect('satuan');
 	}
 
@@ -81,17 +67,10 @@ class Satuan extends CI_Controller {
 	{
 		$where = array('id_satuan' => $id );
 		$this->satuan_model->hapus_data($where, 'satuan');
-		$this->session->set_flashdata('Pesan','
-		<script>
-		$(document).ready(function() {
-			swal.fire({
-				title: "Berhasil dihapus!",
-				icon: "success",
-				confirmButtonColor: "#4e73df",
-			});
-		});
-		</script>
-		');
+		 $this->session->set_flashdata('Pesan', '
+				    <div style="background-color: #4CAF50; color: white; padding: 10px; margin-buttom: 10px">
+				        <strong>Sukses!</strong> Data berhasil dihapus!
+				    </div>');
 		redirect('satuan');
 	}
 

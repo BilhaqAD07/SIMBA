@@ -1,4 +1,8 @@
-<!-- Begin Page Content -->
+<?php 
+$query = "SELECT * FROM setting_app";
+$setting = $this->db->query($query)->row_array();
+
+?>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -10,49 +14,64 @@
     
          <!-- Earnings (Monthly) Card Example -->
          <div class="col-xl-3 col-md-6 mb-4" id="barang">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2 bg-success">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Barang
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Barang
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jmlbarang ?> Data</div>
+                            <div class="h5 mb-0 font-weight-bold text-white"><?= $jmlbarang ?> Data</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-box fa-2x text-gray-300"></i>
+                            <i class="fas fa-box fa-2x text-white"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4" id="supplier">
-            <div class="card border-left-info shadow h-100 py-2">
+         <div class="col-xl-3 col-md-6 mb-4" id="barang_masuk">
+            <div class="card border-left-danger shadow h-100 py-2 bg-warning">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Supplier
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Barang Masuk
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jmlsupplier ?> Data</div>
+                            <div class="h5 mb-0 font-weight-bold text-white"><?= $jmlBM ?> Data</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                            <i class="fas fa-download fa-2x text-white"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="col-xl-3 col-md-6 mb-4" id="barang_keluar">
+            <div class="card border-left-warning shadow h-100 py-2 bg-danger">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Barang Keluar
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white"><?= $jmlBK ?> Data</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-upload fa-2x text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4" id="stok">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-success shadow h-100 py-2 bg-info">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Stok Barang
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Total Stok Barang
                             </div>
                             <?php  
                                 $data = $this->db->select_sum('jumlah_masuk')->from('barang_masuk')->get();
@@ -65,10 +84,10 @@
                                 $b = $data3->row();
                                 $hasil = $b->stok + (intval($bm->jumlah_masuk) - intval($bk->jumlah_keluar));
                             ?>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $hasil ?> Data</div>
+                            <div class="h5 mb-0 font-weight-bold text-white"><?= $hasil ?> Data</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-boxes fa-2x text-gray-300"></i>
+                            <i class="fas fa-boxes fa-2x text-white"></i>
                         </div>
                     </div>
                 </div>
@@ -77,16 +96,79 @@
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4" id="user">
-            <div class="card border-left-secondary shadow h-100 py-2">
+            <div class="card border-left-warning shadow h-100 py-2 bg-primary">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total User
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Total User
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $jmlUser ?> Data</div>
+                            <div class="h5 mb-0 font-weight-bold text-white"><?= $jmlUser ?> Data</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                            <i class="fas fa-user-friends fa-2x text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+          <div class="col-xl-3 col-md-6 mb-4" id="supplier">
+            <div class="card border-left-warning shadow h-100 py-2 bg-primary">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">Supplier
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white"><?= $jmlsupplier ?> Data</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="col-xl-3 col-md-6 mb-4" id="tanggal">
+            <div class="card border-left-warning shadow h-100 py-2 bg-secondary">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center text-white">
+                        <div class="col mr-2">
+                           <p><span id="tanggalwaktu"></span></p>
+                            <script>
+                            var tw = new Date();
+                            if (tw.getTimezoneOffset() == 0) (a=tw.getTime() + ( 7 *60*60*1000))
+                            else (a=tw.getTime());
+                            tw.setTime(a);
+                            var tahun= tw.getFullYear ();
+                            var hari= tw.getDay ();
+                            var bulan= tw.getMonth ();
+                            var tanggal= tw.getDate ();
+                            var hariarray=new Array("Minggu,","Senin,","Selasa,","Rabu,","Kamis,","Jum'at,","Sabtu,");
+                            var bulanarray=new Array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","Nopember","Desember");
+                            document.getElementById("tanggalwaktu").innerHTML = hariarray[hari]+" "+tanggal+" "+bulanarray[bulan]+" "+tahun;
+                            </script>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="col-xl-3 col-md-6 mb-4" id="supplier">
+            <div class="card border-left-warning shadow h-100 py-2 bg-secondary">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2 text-white">
+                             <a href="https://time.is/<?= $setting['alamat'] ?>" id="time_is_link" rel="nofollow" style="font-size:15px;text-decoration:none;color: white;" ><?= $setting['alamat'] ?>,</a>
+                         <span id="<?= $setting['zona_waktu'] ?>" style="font-size:15px"></span>
+                         <script src="//widget.time.is/t.js"></script>
+                         <script>time_is_widget.init({<?= $setting['zona_waktu'] ?>:{}});</script>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clock fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -103,7 +185,7 @@
         <div class="col-xl-12 col-lg-12">
             <div class="card shadow mb-4" id="grafik">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-secondary">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h6 class="m-0 font-weight-bold border-0 text-white">Total Transaksi Barang Perbulan</h6>
                     
                     <div class="col-lg-2">
@@ -132,7 +214,7 @@
         <div class="col-xl-4 col-lg-4">
             <div class="card shadow mb-4" id="grafikpie">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-secondary">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-primary">
                     <h6 class="m-0 font-weight-bold border-0 text-white">Transaksi Barang</h6>
                     
                     <div class="col-lg">
@@ -165,7 +247,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-success">
                 <h6 class="m-0 font-weight-bold border-0 text-white">5 Barang Masuk Terakhir</h6>
-                <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang'): ?>
+                <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'user'): ?>
                     <a href="<?= base_url() ?>barang_masuk" class="btn btn-success btn-md btn-circle">
                         <i class="fa fa-arrow-right"></i>
                     </a>
@@ -204,7 +286,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-danger">
                 <h6 class="m-0 font-weight-bold border-0 text-white">5 Barang Keluar Terakhir</h6>
-                <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang'): ?>
+                <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'user'): ?>
                     <a href="<?= base_url() ?>barang_keluar" class="btn btn-danger btn-md btn-circle">
                         <i class="fa fa-arrow-right"></i>
                     </a>

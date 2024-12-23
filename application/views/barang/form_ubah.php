@@ -44,11 +44,39 @@
                                 <input class="form-control" name="barang" type="text" value="<?= $d->nama_barang ?>">
                             </div>
 
+                             <div class="form-group"><label>Warna Barang</label>
+                                <input class="form-control" name="warna" type="text" value="<?= $d->warna ?>">
+                            </div>
+
                             <!-- Stok -->
                             <div class="form-group"><label>Stok Awal</label>
                                 <input class="form-control" name="stok" type="number" value="<?= $d->stok ?>">
                             </div>
 
+							<!-- Status Barang -->
+							 <div class="form-group">
+								<label>Status Barang Aktif</label>
+								<select name="status" class="form-control">
+									<option value="1" selected>Aktif</option>
+									<option value="0">Non Aktif</option>
+								</select>
+							 </div>
+
+							 <div class="form-group">
+								<label>Status Barang Delivery</label>
+								<select name="status" class="form-control">
+									<option value="1" selected>Delivery</option>
+									<option value="0">Non Delivery</option>
+								</select>
+							 </div>
+
+                            <div class="form-group"><label>Harga Beli</label>
+                                <input class="form-control" name="hargabeli" type="number" value="<?= $d->hargabeli ?>">
+                            </div>
+
+                            <div class="form-group"><label>Harga Jual</label>
+                                <input class="form-control" name="hargajual" type="number" value="<?= $d->hargajual ?>">
+                            </div>
                             <!-- Jenis -->
                             <?php if($jmlJenis > 0): ?>
                             <div class="form-group"><label>Jenis Barang</label>

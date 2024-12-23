@@ -1,10 +1,14 @@
 <?php 
+$query = "SELECT * FROM setting_app";
+$setting = $this->db->query($query)->row_array();
 
 if (!$this->session->has_userdata('login_session')) {
     redirect('login');
 }
-
+$headerBackgroundColor = $setting['header_background_color'] ?? '#001293';
+$sidebarBackgroundColor = $setting['sidebar_background_color'] ?? '#000C62';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +20,10 @@ if (!$this->session->has_userdata('login_session')) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" href="<?= base_url(); ?>assets/icon/iconkj.png">
+     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon"/>
+    <link rel="icon" type="image/png" href="<?= base_url('assets/img/logo/').$setting['logo'] ?>"/>
 
-    <title>KONVEKSI-JAYA | <?= $title ?></title>
+    <title><?= $setting['nama'] ?> | <?= $title ?></title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= base_url(); ?>assets/sbadmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -40,7 +45,7 @@ if (!$this->session->has_userdata('login_session')) {
     <link href="<?= base_url(); ?>assets/sbadmin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -49,14 +54,16 @@ if (!$this->session->has_userdata('login_session')) {
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- <ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar"> -->
+         <ul class="navbar-nav bg-gradient sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: <?= $sidebarBackgroundColor ?>;">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url() ?>home">
                 <div class="sidebar-brand-icon ">
-                    <img src="<?= base_url(); ?>assets/icon/iconkj.png" width="50">
+                    <!-- <img class="img-profile " style="border-radius: 8px" src="<?= base_url(); ?>assets/img/FIFO.png" width="50"> -->
+                    <img src="<?= base_url('assets/img/logo/').$setting['logo'] ?>" alt="" style="width: 50px; max-height: 50px" >
                 </div>
-                <div class="sidebar-brand-text mx-3 ">Konveksi Jaya</div>
+                <div class="sidebar-brand-text mx-3 "><?= $setting['nama'] ?></div>
                 
             </a>
 
@@ -70,11 +77,11 @@ if (!$this->session->has_userdata('login_session')) {
             <li class="nav-item">
                 <?php endif; ?>
                 <a class="nav-link" href="<?= base_url(); ?>home">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-home"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'gudang'): ?>
+            <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'user' || $this->session->userdata('login_session')['level'] == 'superadmin'): ?>
 
              <!-- Divider -->
              <hr class="sidebar-divider">
@@ -151,7 +158,7 @@ if (!$this->session->has_userdata('login_session')) {
 
             <?php endif; ?>
 
-            <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'manajer'): ?>
+            <?php if($this->session->userdata('login_session')['level'] == 'admin' || $this->session->userdata('login_session')['level'] == 'superadmin' || $this->session->userdata('login_session')['level'] == 'user'): ?>
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -173,6 +180,7 @@ if (!$this->session->has_userdata('login_session')) {
                         <h6 class="collapse-header">Laporan</h6>
                         <a class="collapse-item" href="<?= base_url() ?>lap_barang_masuk"><b>Barang Masuk</b></a>
                         <a class="collapse-item" href="<?= base_url() ?>lap_barang_keluar"><b>Barang Keluar</b></a>
+                        <a class="collapse-item" href="<?= base_url() ?>lap_barang"><b>Stok Barang</b></a>
                     </div>
 
                 </div>
@@ -183,7 +191,7 @@ if (!$this->session->has_userdata('login_session')) {
 
             <?php endif; ?>
 
-            <?php if($this->session->userdata('login_session')['level'] == 'admin'): ?>
+            <?php if($this->session->userdata('login_session')['level'] == 'superadmin'): ?>
             
             <?php if($title == 'User'): ?>
             <li class="nav-item active">
@@ -193,9 +201,37 @@ if (!$this->session->has_userdata('login_session')) {
                 <a class="nav-link" href="<?= base_url() ?>user">
                     <i class="fas fa-fw fa-user-friends"></i>
                     <span>Data User</span>
+                </a></li>
+             <hr class="sidebar-divider">
+
+          
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Setting App
+            </div>
+        
+             <!-- Nav Item - Pages Collapse Menu -->
+            <?php if($title == 'Setting App'): ?>
+            <li class="nav-item active">
+                <?php else: ?>
+            <li class="nav-item">
+                <?php endif; ?>
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages3" aria-expanded="true"
+                    aria-controls="collapsePages1">
+                    <i class="fas fa-fw fa-random"></i>
+                    <span>Setting App</span>
                 </a>
+                <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Transaksi</h6>
+                        <a class="collapse-item" href="<?= base_url() ?>SettingWeb/index"><b>Setting App</b></a>
+                    </div>
+
+                </div>
             </li>
 
+           
             <hr class="sidebar-divider d-none d-md-block">
 
             <?php endif; ?>
@@ -217,7 +253,8 @@ if (!$this->session->has_userdata('login_session')) {
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+               <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top shadow" style="background-color: <?= $headerBackgroundColor ?>;">
+
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -263,7 +300,7 @@ if (!$this->session->has_userdata('login_session')) {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="namaP"><?= $this->session->userdata('login_session')['username'] ?></span>
+                                <span class="mr-2 d-none d-lg-inline small text-capitalize text-white" id="namaP"><?= $this->session->userdata('login_session')['username'] ?></span>
                                 <input type="hidden" name="iduser" id="iduser" value="<?= $this->session->userdata('login_session')['id_user'] ?>">
                                 <img class="img-profile rounded-circle" id="img"
                                     src="<?= base_url() ?>assets/upload/pengguna/<?= $this->session->userdata('login_session')['foto'] ?>">

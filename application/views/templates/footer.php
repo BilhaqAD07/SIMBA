@@ -1,11 +1,16 @@
 <!-- Footer -->
-<footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Kelompok 7 - Persediaan Barang - Konveksi Jaya <?= Date('Y') ?></span>
-        </div>
-    </div>
-</footer>
+<?php 
+$query = "SELECT * FROM setting_app";
+$setting = $this->db->query($query)->row_array();
+
+?>
+ <footer class="sticky-footer bg-light">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span ><b>Copyright &copy; <?= $setting['nama'] ?>  &bull; <?= date('Y') ?> </b></span>
+                    </div>
+                </div>
+ </footer>
 <!-- End of Footer -->
 
 </div>
@@ -81,9 +86,7 @@
   <!-- Page level custom scripts -->
   <script src="<?= base_url(); ?>assets/sbadmin/js/demo/datatables-demo.js"></script>
 
-
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </body>
 
 </html>

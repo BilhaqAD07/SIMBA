@@ -4,10 +4,21 @@ class supplier_model extends ci_model{
 
     function data()
     {
-        $this->db->order_by('id_supplier','DESC');
+        $this->db->order_by('id_supplier','ASC');
         return $query = $this->db->get('supplier');
     }
 
+    public function ambilFoto($where)
+    {
+      $this->db->order_by('id_supplier','ASC');
+      $this->db->limit(1);
+      $query = $this->db->get_where('supplier', $where);   
+      
+      $data = $query->row();
+      $foto= $data->foto;
+      
+      return $foto;
+    }
 
     public function ambilId($table, $where)
    {
@@ -62,9 +73,5 @@ class supplier_model extends ci_model{
 		  $kodejadi = "SPLY-".$kodemax;    
 		  return $kodejadi;
 	}
-
-
-
-
 
 }

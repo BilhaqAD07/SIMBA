@@ -21,7 +21,7 @@ $route['barang_keluar'] = 'barangKeluar/index';
 //laporan
 $route['lap_barang_masuk'] = 'barangMasuk/laporan';
 $route['lap_barang_keluar'] = 'barangKeluar/laporan';
-
+$route['lap_barang'] = 'barang/laporan';
 
 
 $route['(:any)'] = 'gagal/index/$1';

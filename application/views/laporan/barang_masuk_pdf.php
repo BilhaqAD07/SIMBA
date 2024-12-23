@@ -1,3 +1,7 @@
+<?php 
+$query = "SELECT * FROM setting_app";
+$setting = $this->db->query($query)->row_array();
+?>
 <?php
 function tgl_indo($tanggal){
 	$bulan = array (
@@ -66,15 +70,24 @@ body{
 <body>
 <table border="0" width="100%">
     <tr>
+        <td><img class="img-profile rounded-circle" src="<?= base_url('assets/img/logo/').$setting['logo'] ?>" width="50"></td>
         <td align="center"><h1>Laporan Barang Masuk</h1></td>
     </tr>
     <tr>
+        <td></td>
         <td align="center">
-            <?php if($tglawal == '' || $tglakhir == ''): ?>
-                <h6>Semua Tanggal</h6>
-            <?php else: ?>
-                <h6><?= tgl_indo($tglawal) ?> - <?= tgl_indo($tglakhir) ?></h6>
-            <?php endif; ?>
+        <?php foreach ($jenis_barang as $jenis): ?>
+        <?php if ($jenis->id_jenis == $jenisFilter): ?>
+            <h5>Jenis : <?= $jenis->nama_jenis ?></h5><br>
+        <?php endif; ?>
+        <?php endforeach; ?>
+
+        <!-- Continue with the existing code -->
+        <?php if ($tglawal == '' || $tglakhir == ''): ?>
+            <h6>Semua Tanggal</h6>
+        <?php else: ?>
+            <h6><?= tgl_indo($tglawal) ?> - <?= tgl_indo($tglakhir) ?></h6>
+        <?php endif; ?>
             
         </td>
     </tr>
@@ -87,7 +100,10 @@ body{
     <th>No.Transaksi</th>
     <th>Supplier</th>
     <th>Nama Barang</th>
+    <th>Jenis Barang</th>
     <th>Jumlah Masuk</th>
+    <th>Harga Beli</th>
+    <th>Total Harga</th>
   </tr>
       <?php $no=1; foreach ($data as $d) { ?>
         <tr>
@@ -96,7 +112,10 @@ body{
           <td><?= $d->id_barang_masuk ?></td>
           <td><?= $d->nama_supplier ?></td>
           <td><?= $d->nama_barang ?></td>
+          <td><?= $d->nama_jenis ?></td>
           <td><?= $d->jumlah_masuk ?></td>
+          <td><?= $d->hargabeli ?></td>
+          <td><?= number_format($d->jumlah_masuk * $d->hargabeli, 2, ',', '.') ?></td>
         </tr>
       <?php } ?>
 </table>
